@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>D&D 5e ability scores generator</title>
+        <link rel="shortcut icon" href="assets/icon.png" />
+        <link rel="stylesheet" href="css/styles.css" />
+    </head>
+    <body>
+        <h1>A simple D&D 5e ability scores generator</h1>
+        <div>
+            <h3>Standard array results</h3>
+            <button id="generateStandardArrayBtn">Generate standard array ability scores</button>
+            <div id="standardArrayaResults"></div>
+        </div>
+        <div>
+            <h3>Old school rolls results (roll 3d6)</h3>
+            <button id="generateOldSchoolRollsBtn">Generate old school rolls ability scores</button>
+            <div id="oldSchoolRollsResults"></div>
+        </div>
+        <div>
+            <h3>Dice rolls results (roll 4d6 and choose the highest 3)</h3>
+            <button id="generateDiceRollsBtn">Generate dice rolls ability scores</button>
+            <div id="diceRollsResults"></div>
+        </div>
+        <div>
+            <h3>Balanced rolls results (total between 70 and 75)</h3>
+            <button id="generateBalancedRollsBtn">Generate balanced rolls ability scores</button>
+            <div id="balancedRollsResults"></div>
+        </div>
+    </body>
+    <footer>
+        <script src="js/app.js" type="module"></script>
+    </footer>
+</html>
