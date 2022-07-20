@@ -1,0 +1,17 @@
+{
+    "eslint.format.enable": true,
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "eslint.codeActionsOnSave.rules": null,
+    "eslint.workingDirectories": [],
+    "prettier.configPath": ".prettierrc",
+    "prettier.enable": true,
+    "prettier.printWidth": 120
+}
