@@ -5,9 +5,10 @@ export class OldSchoolRollsAbilityScoresGenerator extends AbilityScoresGenerator
     generateAbilityScores() {
         const abilityScores = this._generateEmptyAbilityScores();
         for (const abilityScore of Object.values(abilityScores)) {
-            const rolls = [];
+            let rolls = [];
             for (let i = 0; i < 3; i++) rolls.push(DiceRoller.d6());
             abilityScore.setScore(rolls.reduce((x, y) => x + y));
+            abilityScore.setRolls(rolls.sort((a, b) => a - b));
         }
         return abilityScores;
     }

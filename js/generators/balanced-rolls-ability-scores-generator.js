@@ -1,8 +1,7 @@
-import { DiceRoller } from "../utils/dice-roller.js";
-import { AbilityScoresGenerator } from "./ability-scores-generator.js";
+import { DiceRoller } from '../utils/dice-roller.js';
+import { AbilityScoresGenerator } from './ability-scores-generator.js';
 
 export class BalancedRollsAbilityScoresGenerator extends AbilityScoresGenerator {
-
     #MIN_TOTAL_SCORE = 70;
     #MAX_TOTAL_SCORE = 75;
 
@@ -10,14 +9,13 @@ export class BalancedRollsAbilityScoresGenerator extends AbilityScoresGenerator 
         const abilityScores = this._generateEmptyAbilityScores();
         let combination = null;
         while (combination === null) {
-            const abilityScoresRolls = {}
+            const abilityScoresRolls = {};
             for (const abilityScore of Object.keys(abilityScores)) {
-                abilityScoresRolls[abilityScore] = [
-                    DiceRoller.d6(),
-                    DiceRoller.d6(),
-                    DiceRoller.d6(),
-                    DiceRoller.d6()
-                ].sort((a, b) => a - b);
+                const rolls = [DiceRoller.d6(), DiceRoller.d6(), DiceRoller.d6(), DiceRoller.d6()].sort(
+                    (a, b) => a - b
+                );
+                abilityScores[abilityScore].setRolls(rolls);
+                abilityScoresRolls[abilityScore] = rolls;
             }
             combination = this.#getBestAbilityScoreCombination(abilityScoresRolls);
         }
@@ -39,7 +37,7 @@ export class BalancedRollsAbilityScoresGenerator extends AbilityScoresGenerator 
                 values[0] + values[1] + values[2],
                 values[0] + values[1] + values[3],
                 values[0] + values[2] + values[3],
-                values[1] + values[2] + values[3]
+                values[1] + values[2] + values[3],
             ]);
         }
         const combinationsToTry = [];

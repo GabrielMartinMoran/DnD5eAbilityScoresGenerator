@@ -23,7 +23,8 @@ export class AbilityScore {
         20: 5,
     };
 
-    #score;
+    #score = 10;
+    #rolls = [];
 
     constructor(score) {
         this.#score = score;
@@ -35,6 +36,14 @@ export class AbilityScore {
 
     setScore(score) {
         this.#score = score;
+    }
+
+    setRolls(rolls) {
+        this.#rolls = rolls;
+    }
+
+    getRolls() {
+        return this.#rolls;
     }
 
     getModifier() {
