@@ -2,7 +2,7 @@ import { AbilityScore } from "../models/ability-score.js";
 
 export class AbilityScoresGenerator {
 
-    _generateEmptyAbilityScores() {
+    generateEmptyAbilityScores() {
         return {
             strength: new AbilityScore(0),
             dexterity: new AbilityScore(0),

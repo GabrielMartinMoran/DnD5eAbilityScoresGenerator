@@ -3,7 +3,7 @@ import { AbilityScoresGenerator } from './ability-scores-generator.js';
 
 export class DiceRollsAbilityScoresGenerator extends AbilityScoresGenerator {
     generateAbilityScores() {
-        const abilityScores = this._generateEmptyAbilityScores();
+        const abilityScores = this.generateEmptyAbilityScores();
         for (const abilityScore of Object.values(abilityScores)) {
             let rolls = [];
             for (let i = 0; i < 4; i++) rolls.push(DiceRoller.d6());

@@ -26,7 +26,18 @@
             <div id="diceRollsResults"></div>
         </div>
         <div>
-            <h3>Balanced rolls results (roll 4d6 for each ability and combine the results for ensuring a total between 70 and 75)</h3>
+            <h3>
+                Balanced rolls results (roll 4d6 for each ability and combine the results for ensuring a total between
+                specified bounds)
+            </h3>
+            <label>
+                Min total score
+                <input class="boundInput" type="number" id="generateBalancedRollsMinBoundInput" value="70" />
+            </label>
+            <label>
+                Max total score
+                <input class="boundInput" type="number" id="generateBalancedRollsMaxBoundInput" value="75" />
+            </label>
             <button id="generateBalancedRollsBtn">Generate balanced rolls ability scores</button>
             <div id="balancedRollsResults"></div>
         </div>
