@@ -18,6 +18,7 @@ export class AbilityScoresRenderer {
                 (x) => /* html */ `
             <div class="abilityScore">
                 <span class="abilityScoreName">${x.ability.toUpperCase()}</span>
+                <span class="abilityScoreNameShort">${x.ability.toUpperCase().substring(0,3)}</span>
                 <span class="abilityScoreModifier">${x.modifier}</span>
                 <span class="abilityScoreRolls">${x.rolls.length > 0 ? x.rolls.reduce((x, y) => `${x}, ${y}`) : ''}</span>
                 <div class="abilityScoreScoreContainer">
