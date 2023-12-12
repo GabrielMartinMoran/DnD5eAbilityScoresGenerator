@@ -28,8 +28,8 @@ const generateDiceRolls = () => {
 };
 
 const generateBalancedRolls = () => {
-    const min = parseInt(document.getElementById('generateBalancedRollsMinBoundInput').value);
-    const max = parseInt(document.getElementById('generateBalancedRollsMaxBoundInput').value);
+    const min = parseInt($('#generateBalancedRollsMinBoundInput').value);
+    const max = parseInt($('#generateBalancedRollsMaxBoundInput').value);
     if (min > max) {
         alert('Min possible score must not be greter than max possible score');
         return;
@@ -44,7 +44,7 @@ const generateBalancedRolls = () => {
         alert(`Max possible score must not be greater than ${maxPossibleTotalScore}`);
         return;
     }
-    const strategy = document.getElementById('generateBalancedRollsGroupingStrategy').value;
+    const strategy = $('#generateBalancedRollsGroupingStrategy').value;
     AbilityScoresRenderer.render(
         'balancedRollsResults',
         balancedRollsAbilityScoresGenerator.generateAbilityScores(min, max, strategy)
@@ -70,7 +70,7 @@ const main = () => {
         window.location.replace(url);
     }
 
-    document.getElementById('app').innerHTML = html`
+    $('#app').innerHTML = html`
         <h1 id="title">${locateStr('title')}</h1>
         <div>
             ${URLParamsProvider.getLanguage() === 'ES'
@@ -132,10 +132,10 @@ const main = () => {
 
     setTimeout(() => {
         // Register buttons click listeners
-        document.getElementById('generateStandardArrayBtn').addEventListener('click', generateStandardArray);
-        document.getElementById('generateOldSchoolRollsBtn').addEventListener('click', generateOldSchoolDiceRolls);
-        document.getElementById('generateDiceRollsBtn').addEventListener('click', generateDiceRolls);
-        document.getElementById('generateBalancedRollsBtn').addEventListener('click', generateBalancedRolls);
+        $('#generateStandardArrayBtn').addEventListener('click', generateStandardArray);
+        $('#generateOldSchoolRollsBtn').addEventListener('click', generateOldSchoolDiceRolls);
+        $('#generateDiceRollsBtn').addEventListener('click', generateDiceRolls);
+        $('#generateBalancedRollsBtn').addEventListener('click', generateBalancedRolls);
 
         // Call the generators for having data when page loads
         renderSkeletons();
