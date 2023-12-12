@@ -1,8 +1,9 @@
 import { DiceRoller } from '../utils/dice-roller.js';
 import { AbilityScoresGenerator } from './ability-scores-generator.js';
+import { CONFIG } from '../config.js';
 
 export class BalancedRollsAbilityScoresGenerator extends AbilityScoresGenerator {
-    generateAbilityScores(minTotalScore, maxTotalScore) {
+    generateAbilityScores(minTotalScore, maxTotalScore, groupingStrategy) {
         const abilityScores = this.generateEmptyAbilityScores();
         let combination = null;
         while (combination === null) {
@@ -14,7 +15,12 @@ export class BalancedRollsAbilityScoresGenerator extends AbilityScoresGenerator 
                 abilityScores[abilityScore].setRolls(rolls);
                 abilityScoresRolls[abilityScore] = rolls;
             }
-            combination = this.#getBestAbilityScoreCombination(abilityScoresRolls, minTotalScore, maxTotalScore);
+            combination = this.#getBestAbilityScoreCombination(
+                abilityScoresRolls,
+                minTotalScore,
+                maxTotalScore,
+                groupingStrategy
+            );
         }
         let i = 0;
         for (const score of Object.values(abilityScores)) {
@@ -24,7 +30,7 @@ export class BalancedRollsAbilityScoresGenerator extends AbilityScoresGenerator 
         return abilityScores;
     }
 
-    #getBestAbilityScoreCombination(abilityScoresRolls, minTotalScore, maxTotalScore) {
+    #getBestAbilityScoreCombination(abilityScoresRolls, minTotalScore, maxTotalScore, groupingStrategy) {
         const combinations = [];
         const combinationsRef = [];
         for (const abilityScore of Object.keys(abilityScoresRolls)) {
@@ -46,7 +52,7 @@ export class BalancedRollsAbilityScoresGenerator extends AbilityScoresGenerator 
                         for (let w_i = 0; w_i < possibilitiesLength; w_i++)
                             for (let ch_i = 0; ch_i < possibilitiesLength; ch_i++)
                                 combinationsToTry.push([s_i, d_i, c_i, i_i, w_i, ch_i]);
-        const sumScores = (scores) => scores.reduce((a, b) => a + b, 0);
+
         const candidates = [];
         for (const combinationToTry of combinationsToTry) {
             const scores = [
@@ -57,13 +63,46 @@ export class BalancedRollsAbilityScoresGenerator extends AbilityScoresGenerator 
                 combinations[4][combinationToTry[4]],
                 combinations[5][combinationToTry[5]],
             ];
-            const sum = sumScores(scores);
+            const sum = this.#sumScores(scores);
             if (sum >= minTotalScore && sum <= maxTotalScore) {
                 candidates.push(scores);
             }
         }
-        const sortedCandidates = candidates.sort((a, b) => sumScores(a) - sumScores(b));
+        const sortedCandidates = this.#sortScores(candidates, groupingStrategy);
         if (sortedCandidates.length == 0) return null;
+        /*
+        console.table(
+            sortedCandidates.map((x) => {
+                return {
+                    scores: x.toString(),
+                    sum: this.#sumScores(x),
+                    ponderated_sum: this.#ponderatedSumScores(x, groupingStrategy),
+                };
+            })
+        );
+        */
         return sortedCandidates[sortedCandidates.length - 1];
+    }
+
+    #sumScores(scores) {
+        return scores.reduce((a, b) => a + b, 0);
+    }
+
+    #ponderatedSumScores(scores, groupingStrategy) {
+        let reducer = (a, b) => a + b;
+        if (groupingStrategy === CONFIG.BALANCED_ROLL_GROUPING_STRAT.PEAKS) {
+            reducer = (a, b) => a + Math.pow(b, 4);
+        } else if (groupingStrategy === CONFIG.BALANCED_ROLL_GROUPING_STRAT.FLATTERN) {
+            reducer = (a, b) => a - Math.pow(Math.abs(10 - b), 2);
+        } else if (groupingStrategy === CONFIG.BALANCED_ROLL_GROUPING_STRAT.RANDOM) {
+            reducer = (a, b) => Math.random();
+        }
+        return scores.reduce(reducer, 0);
+    }
+
+    #sortScores(scores, groupingStrategy) {
+        return scores.sort(
+            (a, b) => this.#ponderatedSumScores(a, groupingStrategy) - this.#ponderatedSumScores(b, groupingStrategy)
+        );
     }
 }

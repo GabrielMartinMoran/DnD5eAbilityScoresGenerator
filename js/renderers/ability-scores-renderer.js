@@ -1,3 +1,5 @@
+import { locateStr } from '../utils/lang-string-provider.js';
+
 export class AbilityScoresRenderer {
     static render(id, abilityScores) {
         const abScores = [];
@@ -17,10 +19,12 @@ export class AbilityScoresRenderer {
             .map(
                 (x) => /* html */ `
             <div class="abilityScore">
-                <span class="abilityScoreName">${x.ability.toUpperCase()}</span>
-                <span class="abilityScoreNameShort">${x.ability.toUpperCase().substring(0,3)}</span>
+                <span class="abilityScoreName">${locateStr(x.ability).toUpperCase()}</span>
+                <span class="abilityScoreNameShort">${locateStr(x.ability).toUpperCase().substring(0, 3)}</span>
                 <span class="abilityScoreModifier">${x.modifier}</span>
-                <span class="abilityScoreRolls">${x.rolls.length > 0 ? x.rolls.reduce((x, y) => `${x}, ${y}`) : ''}</span>
+                <span class="abilityScoreRolls">${
+                    x.rolls.length > 0 ? x.rolls.reduce((x, y) => `${x}, ${y}`) : ''
+                }</span>
                 <div class="abilityScoreScoreContainer">
                     <span class="abilityScoreScore">${x.score}</span>
                 </div>

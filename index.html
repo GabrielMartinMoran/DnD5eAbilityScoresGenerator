@@ -9,40 +9,18 @@
         <link rel="stylesheet" href="css/styles.css" />
     </head>
     <body>
-        <h1>A simple D&D 5e ability scores generator</h1>
-        <div>
-            <h3>Standard array results (place scores 15, 14, 13, 12, 10 and 8)</h3>
-            <button id="generateStandardArrayBtn">Generate standard array ability scores</button>
-            <div id="standardArrayaResults"></div>
-        </div>
-        <div>
-            <h3>Old school rolls results (roll 3d6)</h3>
-            <button id="generateOldSchoolRollsBtn">Generate old school rolls ability scores</button>
-            <div id="oldSchoolRollsResults"></div>
-        </div>
-        <div>
-            <h3>Dice rolls results (roll 4d6 and drop the lowest)</h3>
-            <button id="generateDiceRollsBtn">Generate dice rolls ability scores</button>
-            <div id="diceRollsResults"></div>
-        </div>
-        <div>
-            <h3>
-                Balanced rolls results (roll 4d6 for each ability and combine the results for ensuring a total between
-                specified bounds)
-            </h3>
-            <label>
-                Min total score
-                <input class="boundInput" type="number" id="generateBalancedRollsMinBoundInput" value="70" />
-            </label>
-            <label>
-                Max total score
-                <input class="boundInput" type="number" id="generateBalancedRollsMaxBoundInput" value="75" />
-            </label>
-            <button id="generateBalancedRollsBtn">Generate balanced rolls ability scores</button>
-            <div id="balancedRollsResults"></div>
-        </div>
+        <div id="app"></div>
     </body>
     <footer>
+        <script>
+            var $ = (query) => {
+                if (query.charAt(0) === '#') return document.getElementById(query.substr(1));
+                return document.querySelector(query);
+            };
+
+            // Only for templating
+            var html = String.raw;
+        </script>
         <script src="js/app.js" type="module"></script>
     </footer>
 </html>
